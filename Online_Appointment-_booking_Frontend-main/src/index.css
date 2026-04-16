@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: dark;
+  color: #fff;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  @apply text-white overflow-x-hidden;
+  background-color: #0f172a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Simple Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+@layer components {
+  /* Simple Glass Style */
+  .glass {
+    @apply backdrop-blur-md bg-white/10 border border-white/10;
+  }
+
+  .glass-card {
+    @apply bg-white/5 border border-white/10 rounded-xl p-6;
+  }
+  
+  .glass-nav {
+    @apply backdrop-blur-md bg-[#0f172a]/80 border-b border-white/10;
+  }
+
+  .text-gradient {
+    @apply text-blue-400;
+  }
+
+  .btn-primary {
+    @apply bg-blue-600 text-white font-medium rounded-lg px-6 py-2.5 hover:bg-blue-700 transition-colors;
+  }
+
+  .btn-secondary {
+    @apply bg-slate-800 border border-white/10 hover:bg-slate-700 text-white font-medium rounded-lg px-6 py-2.5 transition-colors;
+  }
+
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 py-20;
+  }
+}

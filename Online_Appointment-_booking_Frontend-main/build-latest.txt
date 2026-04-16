@@ -1,0 +1,18 @@
+
+> online-appointment-booking@0.1.0 build
+> vite build
+
+[36mvite v5.4.21 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 3 modules transformed.
+[31mx[39m Build failed in 248ms
+[31merror during build:
+[31m[vite:css] [postcss] It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.[31m
+file: [36mC:/Users/navdh/Documents/online_appointment project/src/index.css:undefined:NaN[31m
+    at at (C:\Users\navdh\Documents\online_appointment project\node_modules\tailwindcss\dist\lib.js:38:1643)
+    at LazyResult.runOnRoot (C:\Users\navdh\Documents\online_appointment project\node_modules\postcss\lib\lazy-result.js:361:16)
+    at LazyResult.runAsync (C:\Users\navdh\Documents\online_appointment project\node_modules\postcss\lib\lazy-result.js:290:26)
+    at async compileCSS (file:///C:/Users/navdh/Documents/online_appointment%20project/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36898:21)
+    at async Object.transform (file:///C:/Users/navdh/Documents/online_appointment%20project/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36171:11)
+    at async transform (file:///C:/Users/navdh/Documents/online_appointment%20project/node_modules/rollup/dist/es/shared/node-entry.js:21316:16)
+    at async ModuleLoader.addModuleSource (file:///C:/Users/navdh/Documents/online_appointment%20project/node_modules/rollup/dist/es/shared/node-entry.js:21544:36)[39m
