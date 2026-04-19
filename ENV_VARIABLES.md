@@ -23,11 +23,12 @@ VITE_API_URL=https://your-backend-url.onrender.com/api
 
 ## Getting Values
 
-### MONGODB_URI
+### MONGODB_URI / DATABASE_URL
 
 1. Create MongoDB database on Render
 2. Copy connection string from Render dashboard
 3. Format: `mongodb+srv://user:password@cluster.mongodb.net/database`
+4. Render may provide the string in `MONGODB_URI` or `DATABASE_URL`, so the backend supports both.
 
 ### JWT_SECRET
 

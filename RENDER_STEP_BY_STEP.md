@@ -86,6 +86,8 @@ NODE_ENV = production
 JWT_SECRET = (generate random string like: a7x9sPq2mK8wL4jB6nT1vFhRyUeZ3cQ5)
 JWT_EXPIRE = 7d
 MONGODB_URI = (paste the connection string from Step 1.4)
+# If Render supplies DATABASE_URL instead, set that value too.
+DATABASE_URL = (paste same connection string if needed)
 CORS_ORIGIN = (leave blank for now, update after frontend deployed)
 ```
 
