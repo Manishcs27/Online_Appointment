@@ -164,21 +164,6 @@ const Signup = () => {
         </div>
 
         {/* Demo Signup Hint */}
-        <div className="mt-6 p-3 bg-blue-500/5 rounded-lg border border-blue-500/10">
-          <p className="text-[10px] font-bold text-blue-400 uppercase tracking-wider mb-2">Demo Hints:</p>
-          <div className="grid grid-cols-2 gap-4 text-[10px] text-slate-400">
-            <div>
-              <p className="text-slate-300 font-bold underline mb-1">User:</p>
-              <p>user@gmail.com</p>
-              <p>Pass: password123</p>
-            </div>
-            <div>
-              <p className="text-slate-300 font-bold underline mb-1">Admin:</p>
-              <p>admin@gmail.com</p>
-              <p>Pass: admin123</p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
