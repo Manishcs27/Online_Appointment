@@ -9,6 +9,14 @@ const generateToken = (user) => {
   );
 };
 
+const generateRefreshToken = (user) => {
+  return jwt.sign(
+    { userId: user._id, role: user.role },
+    process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET,
+    { expiresIn: process.env.JWT_REFRESH_EXPIRE || '30d' }
+  );
+};
+
 export const signup = async (req, res, next) => {
   try {
     const { name, email, password, role } = req.body;
@@ -29,6 +37,8 @@ export const signup = async (req, res, next) => {
       role: role || 'user',
     });
 
+    const refreshToken = generateRefreshToken(user);
+    user.refreshToken = refreshToken;
     await user.save();
 
     const token = generateToken(user);
@@ -37,6 +47,7 @@ export const signup = async (req, res, next) => {
       success: true,
       message: 'User registered successfully',
       token,
+      refreshToken,
       user: {
         id: user._id,
         name: user.name,
@@ -70,12 +81,17 @@ export const login = async (req, res, next) => {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
+    const refreshToken = generateRefreshToken(user);
+    user.refreshToken = refreshToken;
+    await user.save();
+
     const token = generateToken(user);
 
     res.json({
       success: true,
       message: 'Logged in successfully',
       token,
+      refreshToken,
       user: {
         id: user._id,
         name: user.name,
@@ -111,6 +127,56 @@ export const getCurrentUser = async (req, res, next) => {
   }
 };
 
-export const logout = (req, res) => {
-  res.json({ success: true, message: 'Logged out successfully' });
+export const refreshToken = async (req, res, next) => {
+  try {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+      return res.status(400).json({ message: 'Refresh token is required' });
+    }
+
+    const decoded = jwt.verify(
+      refreshToken,
+      process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET
+    );
+
+    const user = await User.findById(decoded.userId).select('+refreshToken');
+    if (!user || user.refreshToken !== refreshToken) {
+      return res.status(401).json({ message: 'Invalid refresh token' });
+    }
+
+    const newToken = generateToken(user);
+    const newRefreshToken = generateRefreshToken(user);
+    user.refreshToken = newRefreshToken;
+    await user.save();
+
+    res.json({
+      success: true,
+      token: newToken,
+      refreshToken: newRefreshToken,
+    });
+  } catch (error) {
+    if (error.name === 'TokenExpiredError') {
+      return res.status(401).json({ message: 'Refresh token expired' });
+    }
+    next(error);
+  }
+};
+
+export const logout = async (req, res, next) => {
+  try {
+    const { refreshToken } = req.body;
+
+    if (refreshToken) {
+      const user = await User.findOne({ refreshToken }).select('+refreshToken');
+      if (user) {
+        user.refreshToken = undefined;
+        await user.save();
+      }
+    }
+
+    res.json({ success: true, message: 'Logged out successfully' });
+  } catch (error) {
+    next(error);
+  }
 };
